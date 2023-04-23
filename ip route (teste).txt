@@ -1,0 +1,44 @@
+enable
+configure terminal
+hostname router1
+service password-encryption
+no ip domain-lookup
+banner motd @**********************************************
+*     Bem-vindo ao Router Cisco configurado por Ryan     *
+**********************************************@
+
+line console 0
+ password 123456
+ login
+
+line vty 0 15
+ password 123456
+ login
+
+line aux 0
+ password [senha]
+ login
+
+interface GigabitEthernet 0/0
+ description Conexão com a rede interna
+ ip address [ip da interface] [máscara da interface]
+ no shutdown
+
+interface Serial 0/0/0
+ description Conexão com o Router2
+ encapsulation hdlc
+ ip address [ip da interface] [máscara da interface]
+ clock rate 64000
+ no shutdown
+
+interface Serial 0/3/0
+ description Conexão com o Router3
+ encapsulation hdlc
+ ip address [ip da interface] [máscara da interface]
+ clock rate 64000
+ no shutdown
+
+ip route [ip do destino] [máscara] [ip do gateway padrão]
+
+end
+wr
